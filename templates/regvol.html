@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Simple form</title>
+    </head>
+    <body>
+        <div class='volunteerform'>
+            <volunteerform method='POST' action=''>
+                {{ volunteerform.first_name.label }} {{ volunteerform.first_name }}
+                <br>
+                {{ volunteerform.last_name.label }} {{ volunteerform.last_name }}
+                <br>
+                {{ volunteerform.event.label }} {{ volunteerform.event }}
+                <br>
+                {{ volunteerform.submit }}
+                <br>
+            {{ message }}
+            </form>
+        </div>
+    </body>
+</html>
