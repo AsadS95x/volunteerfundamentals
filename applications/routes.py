@@ -18,6 +18,10 @@ def addevent():
 def updateevent(e_id):
     return null
 
+@app.route('/updatevol/<name>', methods=['GET', 'POST'])
+def updateevent(v_id):
+    return null
+
 @app.route('/deletevolunteer/<v_id>', methods=['GET', 'POST'])
 def deletevolunteer(v_id):
      return null
@@ -25,18 +29,18 @@ def deletevolunteer(v_id):
 @app.route('/deleteevent/<e_id>', methods=['GET', 'POST'])
 def deletevent(e_id):
     return null
-
-
+'''
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')  '''
+    return render_template('home.html')  
 
-@app.route('/viewevents', methods=['GET', 'POST'])
+@app.route('/viewvols', methods=['GET', 'POST'])
 def viewevents():
    # view_event_vform = ViewEvents()
     volunteers = db.session.query(Volunteers).all()
     #volunteers = db.session.query(Subjects).all()
-    return render_template('view_event.html', volunteers=volunteers, message="")
+    return render_template('view_volunteers.html', volunteers=volunteers, message="")
 
 
 @app.route('/newvol', methods=['GET', 'POST'])
@@ -66,4 +70,4 @@ def registervolunteer():
             return redirect(url_for("registervolunteer"))
 
 
-    return render_template('regvol.html', form=vform, message=message)
+    return render_template('addvol.html', form=vform, message=message)
