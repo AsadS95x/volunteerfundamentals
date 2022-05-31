@@ -4,6 +4,9 @@
     </head>
     <body>
         <h1>There is alot happening near you</h1>
+        {% for v in volunteers %}
+            <br>{{v}}{{v.f_name}}{{v.f_name.label}}<br>
+         {%endfor%}
         <p>Eventually Events will be shown here</p>
     <body>
 </html>
