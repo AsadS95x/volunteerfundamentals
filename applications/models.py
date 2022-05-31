@@ -6,7 +6,7 @@ class Events(db.Model):
     date = db.Column(db.Date, nullable=False)
     # re = db.relationship('Revents', backref='events') 
 
-class Volunteers(db.Model):
+class Volunteer(db.Model):
     v_id = db.Column(db.Integer, primary_key=True)
     f_name = db.Column(db.String(30), nullable=False)
     l_name = db.Column(db.String(30), nullable=False)

@@ -1,4 +1,4 @@
-from applications.models import Volunteers, Events
+from applications.models import Volunteer, Events
 from applications import app, db
 from flask import Flask, redirect, render_template, request, url_for
 from applications.forms import Volform
@@ -22,9 +22,6 @@ def updateevent(e_id):
 def updateevent(v_id):
     return null
 
-@app.route('/deletevolunteer/<v_id>', methods=['GET', 'POST'])
-def deletevolunteer(v_id):
-     return null
 
 @app.route('/deleteevent/<e_id>', methods=['GET', 'POST'])
 def deletevent(e_id):
@@ -36,9 +33,9 @@ def home():
     return render_template('home.html')  
 
 @app.route('/viewvols', methods=['GET', 'POST'])
-def viewevents():
-   # view_event_vform = ViewEvents()
-    volunteers = db.session.query(Volunteers).all()
+def viewvolunteers():
+   # view_event_vform = ViewVolunteers()
+    volunteers = db.session.query(Volunteer).all()
     #volunteers = db.session.query(Subjects).all()
     return render_template('view_volunteers.html', volunteers=volunteers, message="")
 
@@ -60,14 +57,22 @@ def registervolunteer():
             message = "Please supply both first and last name"
         else:
             message = f'Thank you, {f_name} {l_name}'
-
-            db.session.query(Volunteers).all()
+            db.session.query(Volunteer).all()
             print(" Break 2")
-            add_vol = Volunteers( f_name=f_name, l_name=l_name, re=Revent  )
+            add_vol = Volunteer( f_name=f_name, l_name=l_name, re=Revent  )
             print(" Break 3")
             db.session.add(add_vol)
             db.session.commit()
             return redirect(url_for("registervolunteer"))
 
-
     return render_template('addvol.html', form=vform, message=message)
+
+
+@app.route('/delvol/<id>', methods=['GET', 'POST'])
+def deletevolunteer(id):
+    volunteers = db.session.query(Volunteer).filter(Volunteer.v_id == id)
+    #print ("This next line should be the query!")
+    # #print (volunteers.all())
+    volunteers.delete()
+    db.session.commit()
+    return redirect(url_for("viewvolunteers"))
