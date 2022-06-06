@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Change Volunteer Details form</title>
+    </head>
+    <body>
+        <div class='UpVolform'>
+            <form method='POST' action=''>
+                {{ form.f_name.label }} {{ form.f_name }}
+                <br>
+                {{ form.l_name.label }} {{ form.l_name }}
+                <br>
+                {{ form.Revent.label }} {{ form.Revent }}
+                <br>
+                {{ form.submit }}
+                <br>
+                {{ message }}
+            </form>
+        </div>
+    </body>
+</html>

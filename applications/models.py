@@ -10,5 +10,5 @@ class Volunteer(db.Model):
     v_id = db.Column(db.Integer, primary_key=True)
     f_name = db.Column(db.String(30), nullable=False)
     l_name = db.Column(db.String(30), nullable=False)
-    # re = db.relationship('Revents', backref='volunteers')
+    # re = db.relationship('Revents', backref='volunteer')
     re = db.Column(db.String(30), nullable=False)
