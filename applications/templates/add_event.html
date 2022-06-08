@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Simple form</title>
+    </head>
+    <body>
+        <div class='eventform'>
+            <form method='POST' action=''>
+                {{ form.name.label }} {{ form.name }}
+                <br>
+                {{ form.date.label }} {{ form.date }}
+                <br>
+                <br>
+                {{ form.submit }}
+                <br>
+                {{ message }}
+            </form>
+        </div>
+    </body>
+</html>

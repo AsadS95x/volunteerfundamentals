@@ -1,19 +1,36 @@
 from applications.models import Volunteer, Events
 from applications import app, db
 from flask import Flask, redirect, render_template, request, url_for
-from applications.forms import UpVolform, Volform
+from applications.forms import UpVolform, Volform,AddEventform
 
-'''
+
 @app.route('/viewevents', methods=['GET'])
 def viewevents():
-    view_event_vform = ViewEvents()
-    return render_template('view_events.html', vform=view_event_vform)
+    events = db.session.query(Events).all()
+    return render_template('view_events.html', events=events, message="")
 
 @app.route('/addevent', methods=['GET', 'POST'])
 def addevent():
-    add_event_vform = AddEvent()
-    return render_template('add_event.html', vform=add_event_vform)
+    eform = AddEventform()
 
+    if request.method == 'POST': 
+        name = eform.name.data
+        date = eform.date.data
+    #print(" do we reach this?")
+        db.session.query(Events).all()
+        print(" Break 2")
+        add_event = Events( name=name, date=date  )
+        print(" Break 3")
+        db.session.add(add_event)
+        db.session.commit()
+        return redirect(url_for("home"))
+
+    return render_template('add_event.html', form=eform)
+
+   
+
+
+'''
 @app.route('/updatevent/<name>', methods=['GET', 'POST'])
 def updateevent(e_id):
     return null
@@ -51,7 +68,7 @@ def registervolunteer():
             message = f'Thank you, {f_name} {l_name}'
             db.session.query(Volunteer).all()
             print(" Break 2")
-            add_vol = Volunteer( f_name=f_name, l_name=l_name, re=Revent  )
+            add_vol = Volunteer( f_name=f_name, l_name=l_name  )
             print(" Break 3")
             db.session.add(add_vol)
             db.session.commit()

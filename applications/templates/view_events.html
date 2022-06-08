@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>View all the Events</title>
+    </head>
+    <body>
+        <h1>All these events are happening near you</h1>
+        {{ message }}
+        <br>
+        {% for e in events %}
+            <br>{   {{e}} {{e.name}}   {{e.name.label}}  {{e.date}} }<br>
+         {%endfor%}
+         <br>
+        <p>Eventually Events will be shown here</p>
+    <body>
+</html>

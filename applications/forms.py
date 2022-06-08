@@ -1,5 +1,6 @@
+from xmlrpc.client import DateTime
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField,IntegerField
+from wtforms import StringField, SubmitField, SelectField,IntegerField, DateTimeField, DateField
 
 
 class Volform(FlaskForm):
@@ -14,3 +15,9 @@ class UpVolform(FlaskForm):
     l_name = StringField("Last Name")
     Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
     submit = SubmitField('Update Details')
+
+
+class AddEventform(FlaskForm):
+    name = StringField('Event Name')
+    date = DateField('When is this event?')
+    submit = SubmitField('Register Event')
