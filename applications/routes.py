@@ -28,19 +28,16 @@ def addevent():
     return render_template('add_event.html', form=eform)
 
    
-
-@app.route('/updatevent/<name>', methods=['GET', 'POST'])
+@app.route('/updatevent/<id>', methods=['GET', 'POST'])
 def updateevent(id):
     message = "Details Updated"
-    ev = db.session.query(Events).filter(Events.e_id == id).first()
+    event = db.session.query(Events).filter(Events.e_id == id).first()
     UpEform = UpEvform()
 
     if request.method == 'POST':
-        #print ("2: "+request.form['f_name'])
-        #print ("1: "+request.form['l_name'])
-        ev.name = request.form['name']
-        ev.date = request.form['date']
-        #volunteers.Revent = request.form['Revent']
+        #print ("1: "+request.form['name'])
+        event.name = UpEform.name.data
+        event.date = UpEform.date.data
         db.session.commit()
         return redirect(url_for("viewevents"))
 
@@ -51,7 +48,6 @@ def deletevent(id):
     message= "Event Removed"
     event = db.session.query(Events).filter(Events.e_id == id)
     #print ("This next line should be the query!")
-    # #print (volunteers.all())
     event.delete()
     db.session.commit()
     event = db.session.query(Events).all()
@@ -65,7 +61,7 @@ def home():
 
 @app.route('/viewvols', methods=['GET', 'POST'])
 def viewvolunteers():
-   # view_event_vform = ViewVolunteers()
+   #view_event_vform = ViewVolunteers()
     volunteers = db.session.query(Volunteer).all()
     #volunteers = db.session.query(Subjects).all()
     return render_template('view_volunteers.html', volunteers=volunteers, message="")
@@ -117,7 +113,6 @@ def updatevolunteer(id):
         #print ("1: "+request.form['l_name'])
         volunteers.f_name = request.form['f_name']
         volunteers.l_name = request.form['l_name']
-        #volunteers.Revent = request.form['Revent']
         db.session.commit()
         return redirect(url_for("viewvolunteers"))
 

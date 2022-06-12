@@ -16,7 +16,6 @@ class UpVolform(FlaskForm):
     #Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
     submit = SubmitField('Update Details')
 
-
 class AddEventform(FlaskForm):
     name = StringField('Event Name')
     date = DateField('When is this event?')
@@ -25,5 +24,4 @@ class AddEventform(FlaskForm):
 class UpEvform(FlaskForm):
     name = StringField("Event Name")
     date = DateField('When is this event?')
-    #Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
     submit = SubmitField('Update Details')
