@@ -1,7 +1,7 @@
 from applications.models import Volunteer, Events
 from applications import app, db
 from flask import Flask, redirect, render_template, request, url_for
-from applications.forms import UpVolform, Volform,AddEventform
+from applications.forms import UpVolform, Volform,AddEventform, UpEvform
 
 
 @app.route('/viewevents', methods=['GET'])
@@ -28,14 +28,26 @@ def addevent():
     return render_template('add_event.html', form=eform)
 
    
-'''
-@app.route('/updatevent/<name>', methods=['GET', 'POST'])
-def updateevent(e_id):
-    return null
-'''
 
-@app.route('/deleteevent/<e_id>', methods=['GET', 'POST'])
-def deletevent(e_id):
+@app.route('/updatevent/<name>', methods=['GET', 'POST'])
+def updateevent(id):
+    message = "Details Updated"
+    ev = db.session.query(Events).filter(Events.e_id == id).first()
+    UpEform = UpEvform()
+
+    if request.method == 'POST':
+        #print ("2: "+request.form['f_name'])
+        #print ("1: "+request.form['l_name'])
+        ev.name = request.form['name']
+        ev.date = request.form['date']
+        #volunteers.Revent = request.form['Revent']
+        db.session.commit()
+        return redirect(url_for("viewevents"))
+
+    return render_template('update_event.html', form=UpEform, message=message)
+
+@app.route('/deleteevent/<id>', methods=['GET', 'POST'])
+def deletevent(id):
     message= "Event Removed"
     event = db.session.query(Events).filter(Events.e_id == id)
     #print ("This next line should be the query!")
