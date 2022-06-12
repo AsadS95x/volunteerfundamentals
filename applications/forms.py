@@ -13,7 +13,7 @@ class Volform(FlaskForm):
 class UpVolform(FlaskForm):
     f_name = StringField("First Name")
     l_name = StringField("Last Name")
-    Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
+    #Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
     submit = SubmitField('Update Details')
 
 
@@ -21,3 +21,9 @@ class AddEventform(FlaskForm):
     name = StringField('Event Name')
     date = DateField('When is this event?')
     submit = SubmitField('Register Event')
+
+class UpEvform(FlaskForm):
+    name = StringField("Event Name")
+    date = DateField('When is this event?')
+    #Revent = SelectField("Revent", choices=[('carwash', 'Car Wash'), ('dinner', 'Dinner'), ('bakesale', 'Bakesale')])
+    submit = SubmitField('Update Details')

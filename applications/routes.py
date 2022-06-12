@@ -28,17 +28,24 @@ def addevent():
     return render_template('add_event.html', form=eform)
 
    
-
-
 '''
 @app.route('/updatevent/<name>', methods=['GET', 'POST'])
 def updateevent(e_id):
     return null
+'''
 
 @app.route('/deleteevent/<e_id>', methods=['GET', 'POST'])
 def deletevent(e_id):
-    return null
-'''
+    message= "Event Removed"
+    event = db.session.query(Events).filter(Events.e_id == id)
+    #print ("This next line should be the query!")
+    # #print (volunteers.all())
+    event.delete()
+    db.session.commit()
+    event = db.session.query(Events).all()
+    return render_template("view_events.html", events=event, message=message)
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -98,7 +105,7 @@ def updatevolunteer(id):
         #print ("1: "+request.form['l_name'])
         volunteers.f_name = request.form['f_name']
         volunteers.l_name = request.form['l_name']
-        volunteers.Revent = request.form['Revent']
+        #volunteers.Revent = request.form['Revent']
         db.session.commit()
         return redirect(url_for("viewvolunteers"))
 
