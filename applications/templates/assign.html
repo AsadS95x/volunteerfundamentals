@@ -5,23 +5,11 @@
     <body>
         <div class='Assignform'>
             <form method='POST' action=''>
-                <select>        
-                    <br>
-                    {% for e in events %}
-                    <option value={{e.name}}>{{e.name}} </option>
-                    <br>
-                    {%endfor%}
-                </select>
+                {{aform.name.label}}{{aform.name}}
             <br>
-                <select>        
-                    <br>
-                    {% for v in volunteer %}
-                    <option value={{v.f_name}}>{{v.f_name}} </option>
-                    <br>
-                    {%endfor%}
-                </select>
+                {{aform.f_name.label}}{{aform.f_name}}
             <br>
-                {{ form.submit }}
+                {{ aform.submit }}
             </form>
         </div>
     </body>

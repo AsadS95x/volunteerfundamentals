@@ -19,9 +19,9 @@ def addevent():
         date = eform.date.data
     #print(" do we reach this?")
         db.session.query(Events).all()
-        print(" Break 2")
+        #print(" Break 2")
         add_event = Events( name=name, date=date  )
-        print(" Break 3")
+        #print(" Break 3")
         db.session.add(add_event)
         db.session.commit()
         return redirect(url_for("home"))
@@ -122,27 +122,27 @@ def updatevolunteer(id):
     
 @app.route('/assign', methods=['GET', 'POST'])
 def assign():
-    message = "Volunteer Assigned"
+    '''message = "Volunteer Assigned"
     events = Events.query.all()
     volunteers = Volunteer.query.all()
     aform = Assignform()
 
+    for e in events:
+        aform.name.choices.append((e.e_id, e.name))
+    for v in volunteers:
+        aform.f_name.choices.append((v.v_id, v.f_name))
+
     if request.method == 'POST':
-        f_name = aform.f_name.data
-        name=aform.name.data
         db.session.query(Enrollment).all()
-        volassign = Enrollment( v_id=getVolid(f_name), e_id=getEventid(name)  )
-        db.session.add(volassign)
-        db.session.commit()
-        return redirect(url_for("ShowAssignments"))
-
-    return render_template('assign.html', form=aform, events=events, volunteer=volunteers, message=message)
+        e=aform.name.data
+        v=aform.f_name.data
+        volassign = Enrollment(e_id=e , v_id=v)
+        '''
 
 
-def getEventid(something):
-        event = db.session.query(Events).filter(Events.e_id == something).first()
-        return event.e_id
+    db.session.add(volassign)
+    db.session.commit()
+    return redirect(url_for("ShowAssignments"))
 
-def getVolid(something):
-        volunteers = db.session.query(Volunteer).filter(Volunteer.f_name == something).first()
-        return volunteers.v_id
+    return render_template('assign.html', aform=aform, events=events, volunteer=volunteers, message=message)
+
