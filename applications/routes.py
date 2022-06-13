@@ -122,27 +122,26 @@ def updatevolunteer(id):
     
 @app.route('/assign', methods=['GET', 'POST'])
 def assign():
-    '''message = "Volunteer Assigned"
+    message = "Volunteer Assigned"
     events = Events.query.all()
     volunteers = Volunteer.query.all()
     aform = Assignform()
 
     for e in events:
-        aform.name.choices.append((e.e_id, e.name))
+        aform.name.choices.append((e.name))
     for v in volunteers:
-        aform.f_name.choices.append((v.v_id, v.f_name))
+        aform.f_name.choices.append((v.f_name))
 
     if request.method == 'POST':
-        db.session.query(Enrollment).all()
-        e=aform.name.data
-        v=aform.f_name.data
-        volassign = Enrollment(e_id=e , v_id=v)
-        '''
 
-
-    db.session.add(volassign)
-    db.session.commit()
-    return redirect(url_for("ShowAssignments"))
-
+        print("this is the iddddddddddd:"+ aform.f_name.data)
+        volassign = db.session.query(Volunteer).filter(Volunteer.f_name == aform.f_name.data).first()
+        events.volunteers.apppend(volassign)
+        db.session.add(events)
+        db.session.commit()
+        return redirect(url_for("ShowAssignments"))
     return render_template('assign.html', aform=aform, events=events, volunteer=volunteers, message=message)
 
+def getvolid(f_name):
+    v = db.session.query(Volunteer).filter(Volunteer.f_name == f_name).first()
+    return v
