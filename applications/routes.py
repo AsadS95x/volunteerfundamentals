@@ -1,7 +1,8 @@
-from applications.models import Volunteer, Events
+from sqlalchemy import null
+from applications.models import Enrollment, Volunteer, Events
 from applications import app, db
 from flask import Flask, redirect, render_template, request, url_for
-from applications.forms import UpVolform, Volform,AddEventform, UpEvform
+from applications.forms import UpVolform, Volform,AddEventform, UpEvform, Assignform
 
 
 @app.route('/viewevents', methods=['GET'])
@@ -46,7 +47,7 @@ def updateevent(id):
 @app.route('/deleteevent/<id>', methods=['GET', 'POST'])
 def deletevent(id):
     message= "Event Removed"
-    event = db.session.query(Events).filter(Events.e_id == id)
+    event = db.session.query(Events).filter(Events.e_id == id).first()
     #print ("This next line should be the query!")
     event.delete()
     db.session.commit()
@@ -117,3 +118,31 @@ def updatevolunteer(id):
         return redirect(url_for("viewvolunteers"))
 
     return render_template('update_vol.html', form=UpVform, message=message)
+
+    
+@app.route('/assign', methods=['GET', 'POST'])
+def assign():
+    message = "Volunteer Assigned"
+    events = Events.query.all()
+    volunteers = Volunteer.query.all()
+    aform = Assignform()
+
+    if request.method == 'POST':
+        f_name = aform.f_name.data
+        name=aform.name.data
+        db.session.query(Enrollment).all()
+        volassign = Enrollment( v_id=getVolid(f_name), e_id=getEventid(name)  )
+        db.session.add(volassign)
+        db.session.commit()
+        return redirect(url_for("ShowAssignments"))
+
+    return render_template('assign.html', form=aform, events=events, volunteer=volunteers, message=message)
+
+
+def getEventid(something):
+        event = db.session.query(Events).filter(Events.e_id == something).first()
+        return event.e_id
+
+def getVolid(something):
+        volunteers = db.session.query(Volunteer).filter(Volunteer.f_name == something).first()
+        return volunteers.v_id

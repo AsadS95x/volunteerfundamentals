@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Change Volunteer Details form</title>
+    </head>
+    <body>
+        <div class='Assignform'>
+            <form method='POST' action=''>
+                <select>        
+                    <br>
+                    {% for e in events %}
+                    <option value={{e.name}}>{{e.name}} </option>
+                    <br>
+                    {%endfor%}
+                </select>
+            <br>
+                <select>        
+                    <br>
+                    {% for v in volunteer %}
+                    <option value={{v.f_name}}>{{v.f_name}} </option>
+                    <br>
+                    {%endfor%}
+                </select>
+            <br>
+                {{ form.submit }}
+            </form>
+        </div>
+    </body>
+</html>

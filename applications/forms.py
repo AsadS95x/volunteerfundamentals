@@ -25,3 +25,8 @@ class UpEvform(FlaskForm):
     name = StringField("Event Name")
     date = DateField('When is this event?')
     submit = SubmitField('Update Details')
+
+class Assignform(FlaskForm):
+    name = StringField("Event Name")
+    f_name= StringField("Volunteer Name")
+    submit = SubmitField('Assign to Event')
