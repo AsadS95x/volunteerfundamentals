@@ -16,7 +16,6 @@ db = SQLAlchemy(app)
 
 from applications import routes
 
-# db.drop_all()
+db.drop_all()
 db.create_all()
-
 

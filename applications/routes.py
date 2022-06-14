@@ -1,5 +1,5 @@
 from sqlalchemy import null
-from applications.models import Enrollment, Volunteer, Events
+from applications.models import Volunteer, Events, enrollment
 from applications import app, db
 from flask import Flask, redirect, render_template, request, url_for
 from applications.forms import UpVolform, Volform,AddEventform, UpEvform, Assignform
@@ -76,7 +76,7 @@ def registervolunteer():
         #v_id = vform.v_id.data 
         f_name = vform.f_name.data
         l_name = vform.l_name.data
-        Revent = vform.Revent.data
+        #Revent = vform.Revent.data
         #print(" do we reach this?")
         if len(f_name) == 0 or len(l_name) == 0:
             message = "Please supply both first and last name"
@@ -107,7 +107,7 @@ def deletevolunteer(id):
 def updatevolunteer(id):
     message = "Details Updated"
     volunteers = db.session.query(Volunteer).filter(Volunteer.v_id == id).first()
-    UpVform = UpVolform()
+    form = UpVolform()
 
     if request.method == 'POST':
         #print ("2: "+request.form['f_name'])
@@ -117,7 +117,7 @@ def updatevolunteer(id):
         db.session.commit()
         return redirect(url_for("viewvolunteers"))
 
-    return render_template('update_vol.html', form=UpVform, message=message)
+    return render_template('update_vol.html', form=form, message=message)
 
     
 @app.route('/assign', methods=['GET', 'POST'])
@@ -125,23 +125,32 @@ def assign():
     message = "Volunteer Assigned"
     events = Events.query.all()
     volunteers = Volunteer.query.all()
-    aform = Assignform()
+    form = Assignform()
 
     for e in events:
-        aform.name.choices.append((e.name))
+        form.name.choices.append((str(e.e_id)+ " " + e.name))
     for v in volunteers:
-        aform.f_name.choices.append((v.f_name))
+        form.f_name.choices.append((str(v.v_id)+ " " +v.f_name))
 
     if request.method == 'POST':
-
-        print("this is the iddddddddddd:"+ aform.f_name.data)
-        volassign = db.session.query(Volunteer).filter(Volunteer.f_name == aform.f_name.data).first()
-        events.volunteers.apppend(volassign)
-        db.session.add(events)
+        print("form vid::" + form.vid)
+        for v in volunteers:
+            if form.v_id == request.form['v_id']:
+                return v
+        for e in events:
+            if form.e_id == request.form['e_id']:
+                return e
+        events.enrollment.append(v)
+        volunteers.assigned.append(e)
+        #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
+        #db.session.add(Assigned)
         db.session.commit()
         return redirect(url_for("ShowAssignments"))
-    return render_template('assign.html', aform=aform, events=events, volunteer=volunteers, message=message)
+    return render_template('assign.html',  events=events, volunteer=volunteers, form=form, message=message)
 
 def getvolid(f_name):
     v = db.session.query(Volunteer).filter(Volunteer.f_name == f_name).first()
-    return v
+    return v.v_id
+def geteid(name):
+    e = db.session.query(Events).filter(Events.name == name).first()
+    return e.e_id

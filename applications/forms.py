@@ -27,6 +27,8 @@ class UpEvform(FlaskForm):
     submit = SubmitField('Update Details')
 
 class Assignform(FlaskForm):
+    e_id = SelectField("Event ID")
     name = SelectField("Event Name", choices=[])
+    v_id = SelectField("Volunteer ID")
     f_name= SelectField("Volunteer Names", choices=[])
     submit = SubmitField('Assign to Event')
