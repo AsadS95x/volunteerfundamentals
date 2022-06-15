@@ -1,8 +1,8 @@
 from sqlalchemy import null
-from applications.models import Volunteer, Events, enrollment
-from applications import app, db
+from application.models import Volunteer, Events, enrollment
+from application import app, db
 from flask import Flask, redirect, render_template, request, url_for
-from applications.forms import UpVolform, Volform,AddEventform, UpEvform, Assignform
+from application.forms import UpVolform, Volform,AddEventform, UpEvform, Assignform
 
 
 @app.route('/viewevents', methods=['GET'])

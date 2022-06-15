@@ -1,4 +1,4 @@
-from applications import db
+from application import db
 
 
 enrollment = db.Table( "enrollment",
