@@ -18,7 +18,7 @@ def addevent():
     if request.method == 'POST': 
         name = eform.name.data
         date = eform.date.data
-    #print(" do we reach this?")
+        #print(" do we reach this?")
         db.session.query(Events).all()
         #print(" Break 2")
         add_event = Events( name=name, date=date  )
@@ -37,7 +37,6 @@ def updateevent(id):
     UpEform = UpEvform()
 
     if request.method == 'POST':
-        #print ("1: "+request.form['name'])
         event.name = UpEform.name.data
         event.date = UpEform.date.data
         db.session.commit()
@@ -49,7 +48,6 @@ def updateevent(id):
 def deletevent(id):
     message= "Event Removed"
     event = db.session.query(Events).filter(Events.e_id == id)
-    #print ("This next line should be the query!")
     event.delete()
     db.session.commit()
     event = db.session.query(Events).all()
@@ -63,9 +61,7 @@ def home():
 
 @app.route('/viewvols', methods=['GET', 'POST'])
 def viewvolunteers():
-   #view_event_vform = ViewVolunteers()
     volunteers = db.session.query(Volunteer).all()
-    #volunteers = db.session.query(Subjects).all()
     return render_template('view_volunteers.html', volunteers=volunteers, message="")
 
 @app.route('/newvol', methods=['GET', 'POST'])
@@ -74,11 +70,9 @@ def registervolunteer():
     vform = Volform()
 
     if request.method == 'POST':
-        #v_id = vform.v_id.data 
         f_name = vform.f_name.data
         l_name = vform.l_name.data
-        #Revent = vform.Revent.data
-        #print(" do we reach this?")
+
         if len(f_name) == 0 or len(l_name) == 0:
             message = "Please supply both first and last name"
         else:
@@ -97,8 +91,6 @@ def registervolunteer():
 def deletevolunteer(id):
     message= "Volunteer Removed"
     volunteers = db.session.query(Volunteer).filter(Volunteer.v_id == id)
-    #print ("This next line should be the query!")
-    # #print (volunteers.all())
     volunteers.delete()
     db.session.commit()
     volunteers = db.session.query(Volunteer).all()
@@ -111,8 +103,6 @@ def updatevolunteer(id):
     form = UpVolform()
 
     if request.method == 'POST':
-        #print ("2: "+request.form['f_name'])
-        #print ("1: "+request.form['l_name'])
         volunteers.f_name = request.form['f_name']
         volunteers.l_name = request.form['l_name']
         db.session.commit()
@@ -130,15 +120,10 @@ def assign():
 
     for e in events:
         form.name.choices.append(((e.e_id), e.name))
-        #form.e_id.choices.append(e.e_id)
     for v in volunteers:
         form.f_name.choices.append(((v.v_id), v.f_name))
-        #form.v_id.choices.append(v.v_id)
 
     if request.method == 'POST':
-        #print("form vid::" + str(form.v_id))
-        #print("form vid2::" + request.form['name'])
-        #print("form vid2::" + request.form['e_id'])
         string=request.form['name']
         int(re.search(r'\d+', string).group())
         string2=request.form['f_name']
@@ -147,10 +132,6 @@ def assign():
                 for e in events:
                     if int(re.search(r'\d+', string2).group()) == e.e_id:
                         e.enrollment.append(v)
-        #db.session.query(enrollment).all()
-        #v.assigned.append(e)
-        #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
-        #db.session.add(Assigned)
         db.session.commit()
         return redirect(url_for("ShowAssignments"))
     return render_template('assign.html',  events=events, volunteer=volunteers, form=form, message=message)
@@ -158,7 +139,4 @@ def assign():
 @app.route('/viewassign', methods=['GET', 'POST'])
 def ShowAssignments():
     enrolled = db.session.query(enrollment).all()
-    #for v in enrolled:
-    #print(str(v))
-    #print(enrolled)
     return render_template('view_assign.html', enrolled=enrolled, message="")
