@@ -1,3 +1,4 @@
+import re
 from sqlalchemy import null
 from application.models import Volunteer, Events, enrollment
 from application import app, db
@@ -128,20 +129,27 @@ def assign():
     form = Assignform()
 
     for e in events:
-        form.name.choices.append((str(e.e_id)+ " " + e.name))
+        form.name.choices.append(((e.e_id), e.name))
+        #form.e_id.choices.append(e.e_id)
     for v in volunteers:
-        form.f_name.choices.append((str(v.v_id)+ " " +v.f_name))
+        form.f_name.choices.append(((v.v_id), v.f_name))
+        #form.v_id.choices.append(v.v_id)
 
     if request.method == 'POST':
-        #print("form vid::" + str(form.v_id))
-
+        print("form vid::" + str(form.v_id))
+        print("form vid2::" + request.form['name'])
+        #print("form vid2::" + request.form['e_id'])
+        string=request.form['name']
+        int(re.search(r'\d+', string).group())
+        string2=request.form['f_name']
         for v in volunteers:
-            if form.v_id == v.v_id:
-                return v
-        for e in events:
-            if form.e_id == e.e_id:
-               return e
-        e.enrollment.append(v)
+            if int(re.search(r'\d+', string).group()) == v.v_id:
+                for e in events:
+                    if int(re.search(r'\d+', string2).group()) == e.e_id:
+                        e.enrollment.append(v)
+                        print(e)
+
+        #db.session.query(enrollment).all()
         #v.assigned.append(e)
         #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
         #db.session.add(Assigned)
@@ -152,8 +160,7 @@ def assign():
 @app.route('/viewassign', methods=['GET', 'POST'])
 def ShowAssignments():
     enrolled = db.session.query(enrollment).all()
-    for v in enrolled:
-        print(str(v.volunteer_id) + "  " + str(v.events_id))
-      
+    #for v in enrolled:
+    #print(str(v))
     #print(enrolled)
     return render_template('view_assign.html', enrolled=enrolled, message="")
