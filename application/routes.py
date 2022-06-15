@@ -49,6 +49,8 @@ def deletevent(id):
     message= "Event Removed"
     event = db.session.query(Events).filter(Events.e_id == id)
     event.delete()
+    #deenroll = db.session.query(enrollment).filter(enrollment.events_id == id).first()
+    #deenroll.delete()
     db.session.commit()
     event = db.session.query(Events).all()
     return render_template("view_events.html", events=event, message=message)
@@ -90,6 +92,8 @@ def registervolunteer():
 @app.route('/delvol/<id>', methods=['GET', 'POST'])
 def deletevolunteer(id):
     message= "Volunteer Removed"
+    #deenroll = db.session.query(enrollment).filter(enrollment.volunteer_id == id)
+    #deenroll.delete()
     volunteers = db.session.query(Volunteer).filter(Volunteer.v_id == id)
     volunteers.delete()
     db.session.commit()

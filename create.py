@@ -1,5 +1,5 @@
 from application import app,db
-from application.models import Volunteer, Events
+from application.models import Volunteer, Events,enrollment
 import datetime
 
 if __name__ == '__main__':
@@ -14,6 +14,10 @@ if __name__ == '__main__':
     demo6 = Events(name="London 2022", date=datetime.datetime(2022, 5, 6))
     demo7 = Events(name="China", date=datetime.datetime(2022, 11, 27))
     demo8 = Events(name="Glasgow", date=datetime.datetime(2022, 6, 18))      
+
+    demo5.enrollment.append(demo1)
+    demo5.enrollment.append(demo2)
+ 
 
     db.session.add(demo1)
     db.session.add(demo2)

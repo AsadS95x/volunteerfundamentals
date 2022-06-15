@@ -22,6 +22,5 @@ class Events(db.Model):
     name = db.Column(db.String(30), nullable=False)
     date = db.Column(db.Date, nullable=False)
     enrollment = db.relationship("Volunteer", secondary=enrollment, backref="assigned", lazy= "select")
-    #volunteers= db.relationship("Volunteer", secondary= enrollment)
     '''def __repr__(self):
         return f'<Events: {self.name}' '''
