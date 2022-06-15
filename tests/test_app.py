@@ -103,3 +103,27 @@ class TestDeleteEv(TestBase):
         )
         self.assert200(response)
         self.assertIn(b'Event Removed', response.data)
+
+class TestUpdateEv(TestBase):
+    def test_post_update_event(self):
+        response = self.client.post(url_for('updateevent', id=1),
+        data = dict(f_name="Test", date=datetime.datetime(3000, 6, 30)),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'Test', response.data)
+
+class TestViewAssignments(TestBase):
+    def test_view_assign(self):
+        response = self.client.get(url_for('ShowAssignments'))
+        self.assert200(response)
+        self.assertIn(b'Volunteer Assignments', response.data)
+
+class TestAddAssign(TestBase):
+    def test_post_add_Assign(self):
+        response = self.client.post(url_for('assign'),
+        data = dict(name="China", f_name="Cat"),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'3          3', response.data)

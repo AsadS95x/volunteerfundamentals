@@ -136,8 +136,8 @@ def assign():
         #form.v_id.choices.append(v.v_id)
 
     if request.method == 'POST':
-        print("form vid::" + str(form.v_id))
-        print("form vid2::" + request.form['name'])
+        #print("form vid::" + str(form.v_id))
+        #print("form vid2::" + request.form['name'])
         #print("form vid2::" + request.form['e_id'])
         string=request.form['name']
         int(re.search(r'\d+', string).group())
@@ -147,8 +147,6 @@ def assign():
                 for e in events:
                     if int(re.search(r'\d+', string2).group()) == e.e_id:
                         e.enrollment.append(v)
-                        print(e)
-
         #db.session.query(enrollment).all()
         #v.assigned.append(e)
         #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
