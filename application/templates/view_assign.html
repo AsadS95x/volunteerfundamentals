@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>View all the Volunteer Assignments</title>
+    </head>
+    <body>
+        <h1>All Volunteers List</h1>
+        {{ message }}
+        <br>
+        {% for a in enrolled %}
+            <br>{{a.volunteer_id}}{{a.events_id}}<br>
+         {%endfor%}
+         <br>
+        <p>All Assignments will be shown here</p>
+    <body>
+</html>

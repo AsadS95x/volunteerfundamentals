@@ -133,17 +133,27 @@ def assign():
         form.f_name.choices.append((str(v.v_id)+ " " +v.f_name))
 
     if request.method == 'POST':
-        print("form vid::" + str(form.v_id))
+        #print("form vid::" + str(form.v_id))
+
         for v in volunteers:
             if form.v_id == v.v_id:
                 return v
         for e in events:
             if form.e_id == e.e_id:
-                return e
+               return e
         e.enrollment.append(v)
-        v.assigned.append(e)
+        #v.assigned.append(e)
         #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
         #db.session.add(Assigned)
         db.session.commit()
         return redirect(url_for("ShowAssignments"))
     return render_template('assign.html',  events=events, volunteer=volunteers, form=form, message=message)
+
+@app.route('/viewassign', methods=['GET', 'POST'])
+def ShowAssignments():
+    enrolled = db.session.query(enrollment).all()
+    for v in enrolled:
+        print(str(v.volunteer_id) + "  " + str(v.events_id))
+      
+    #print(enrolled)
+    return render_template('view_assign.html', enrolled=enrolled, message="")
