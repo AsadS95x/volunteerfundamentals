@@ -1,5 +1,5 @@
-from applications import app,db
-from applications.models import Volunteer, Events
+from application import app,db
+from application.models import Volunteer, Events
 import datetime
 
 if __name__ == '__main__':

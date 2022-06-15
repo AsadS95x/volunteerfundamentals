@@ -88,7 +88,7 @@ def registervolunteer():
             print(" Break 3")
             db.session.add(add_vol)
             db.session.commit()
-            return redirect(url_for("registervolunteer"))
+            return redirect(url_for("viewvolunteers"))
 
     return render_template('add_vol.html', form=vform, message=message)
 

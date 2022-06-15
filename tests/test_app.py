@@ -44,24 +44,29 @@ class TestViewHome(TestBase):
     def test_get_home(self):
         response = self.client.get(url_for('home'))
         self.assert200(response)
-        self.assertIn(b'sample data', response.data)
+        self.assertIn(b'Google', response.data)
 
 class TestViewVol(TestBase):
     def test_get_add(self):
         response = self.client.get(url_for('viewvolunteers'))
         self.assert200(response)
-        self.assertIn(b'View volunteers:', response.data)
+        self.assertIn(b'Volunteers will be shown here', response.data)
 
 class TestAddVol(TestBase):
     def test_post_add(self):
         response = self.client.post(url_for('registervolunteer'),
-        data = dict(add="This has been added in a test"),
+        data = dict(add="Akki"),
         follow_redirects = True
         )
         self.assert200(response)
-        self.assertIn(b'added in a test', response.data)
+        self.assertIn(b'Akki', response.data)
 '''
-class TestViewEv(TestBase):
-    def something():
-        self.assertIn(b'added in a test', response.data)
+class TestDeleteVol(TestBase):
+    def test_post_delete(self):
+        response = self.client.post(url_for('registervolunteer'),
+        data = dict(add="Akki"),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'Akki', response.data)
 '''
