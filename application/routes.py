@@ -25,7 +25,7 @@ def addevent():
         #print(" Break 3")
         db.session.add(add_event)
         db.session.commit()
-        return redirect(url_for("home"))
+        return redirect(url_for("viewevents"))
 
     return render_template('add_event.html', form=eform)
 

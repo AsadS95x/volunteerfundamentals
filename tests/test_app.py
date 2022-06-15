@@ -70,7 +70,6 @@ class TestDeleteVol(TestBase):
         self.assert200(response)
         self.assertIn(b'Volunteer Removed', response.data)
             
-
 class TestUpdateVol(TestBase):
     def test_post_update_vol(self):
         response = self.client.post(url_for('updatevolunteer', id=1),
@@ -80,7 +79,6 @@ class TestUpdateVol(TestBase):
         self.assert200(response)
         self.assertIn(b'Test', response.data)
             
-
 class TestViewEv(TestBase):
     def test_get_add_event(self):
         response = self.client.get(url_for('viewevents'))
@@ -90,11 +88,11 @@ class TestViewEv(TestBase):
 class TestAddEv(TestBase):
     def test_post_add_event(self):
         response = self.client.post(url_for('addevent'),
-        data = dict(name="Test Event", date=datetime.datetime(2022, 6, 30)),
+        data = dict(name="TestEvent", date=datetime.date(2022, 6, 30)),
         follow_redirects = True
         )
         self.assert200(response)
-        self.assertIn(b'Test Event', response.data)
+        self.assertIn(b'TestEvent', response.data)
 
 class TestDeleteEv(TestBase):
     def test_post_delete_event(self):
@@ -107,7 +105,7 @@ class TestDeleteEv(TestBase):
 class TestUpdateEv(TestBase):
     def test_post_update_event(self):
         response = self.client.post(url_for('updateevent', id=1),
-        data = dict(f_name="Test", date=datetime.datetime(3000, 6, 30)),
+        data = dict(name="Test", date=datetime.date(2022, 6, 30)),
         follow_redirects = True
         )
         self.assert200(response)
