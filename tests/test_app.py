@@ -47,26 +47,59 @@ class TestViewHome(TestBase):
         self.assertIn(b'Google', response.data)
 
 class TestViewVol(TestBase):
-    def test_get_add(self):
+    def test_get_add_vol(self):
         response = self.client.get(url_for('viewvolunteers'))
         self.assert200(response)
         self.assertIn(b'Volunteers will be shown here', response.data)
 
 class TestAddVol(TestBase):
-    def test_post_add(self):
+    def test_post_add_vol(self):
         response = self.client.post(url_for('registervolunteer'),
-        data = dict(add="Akki"),
+        data = dict(f_name="Akki", l_name="surname"),
         follow_redirects = True
         )
         self.assert200(response)
         self.assertIn(b'Akki', response.data)
-'''
+
 class TestDeleteVol(TestBase):
-    def test_post_delete(self):
-        response = self.client.post(url_for('registervolunteer'),
-        data = dict(add="Akki"),
+    def test_post_delete_vol(self):
+        response = self.client.post(url_for('deletevolunteer', id=1),
+        #data = dict(add="Akki"),
         follow_redirects = True
         )
         self.assert200(response)
-        self.assertIn(b'Akki', response.data)
-'''
+        self.assertIn(b'Volunteer Removed', response.data)
+            
+
+class TestUpdateVol(TestBase):
+    def test_post_update_vol(self):
+        response = self.client.post(url_for('updatevolunteer', id=1),
+        data = dict(f_name="Test", l_name="Update"),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'Test', response.data)
+            
+
+class TestViewEv(TestBase):
+    def test_get_add_event(self):
+        response = self.client.get(url_for('viewevents'))
+        self.assert200(response)
+        self.assertIn(b'View all the Events', response.data)
+
+class TestAddEv(TestBase):
+    def test_post_add_event(self):
+        response = self.client.post(url_for('addevent'),
+        data = dict(name="Test Event", date=datetime.datetime(2022, 6, 30)),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'Test Event', response.data)
+
+class TestDeleteEv(TestBase):
+    def test_post_delete_event(self):
+        response = self.client.post(url_for('deletevent', id=1),
+        follow_redirects = True
+        )
+        self.assert200(response)
+        self.assertIn(b'Event Removed', response.data)

@@ -47,7 +47,7 @@ def updateevent(id):
 @app.route('/deleteevent/<id>', methods=['GET', 'POST'])
 def deletevent(id):
     message= "Event Removed"
-    event = db.session.query(Events).filter(Events.e_id == id).first()
+    event = db.session.query(Events).filter(Events.e_id == id)
     #print ("This next line should be the query!")
     event.delete()
     db.session.commit()
