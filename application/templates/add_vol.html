@@ -5,6 +5,7 @@
     <body>
         <div class='volunteerform'>
             <form method='POST' action=''>
+                {{ form.hidden_tag() }}
                 {{ form.f_name.label }} {{ form.f_name }}
                 <br>
                 {{ form.l_name.label }} {{ form.l_name }}

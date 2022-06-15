@@ -5,6 +5,7 @@
     <body>
         <div class='UpEvform'>
             <form method='POST' action=''>
+                {{ form.hidden_tag() }}
                 {{ form.name.label }} {{ form.name }}
                 <br>
                 {{ form.date.label }} {{ form.date }}

@@ -5,6 +5,7 @@
     <body>
         <div class='Assignform'>
             <form method='POST' action=''>
+                {{ form.hidden_tag() }}
                 {{form.name.label}}{{form.name}}
             <br>
                 {{form.f_name.label}}{{form.f_name}}
