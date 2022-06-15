@@ -133,24 +133,17 @@ def assign():
         form.f_name.choices.append((str(v.v_id)+ " " +v.f_name))
 
     if request.method == 'POST':
-        print("form vid::" + form.vid)
+        print("form vid::" + str(form.v_id))
         for v in volunteers:
-            if form.v_id == request.form['v_id']:
+            if form.v_id == v.v_id:
                 return v
         for e in events:
-            if form.e_id == request.form['e_id']:
+            if form.e_id == e.e_id:
                 return e
-        events.enrollment.append(v)
-        volunteers.assigned.append(e)
+        e.enrollment.append(v)
+        v.assigned.append(e)
         #Assigned = enrollment(aform.v_id.data, aform.e_id.data)
         #db.session.add(Assigned)
         db.session.commit()
         return redirect(url_for("ShowAssignments"))
     return render_template('assign.html',  events=events, volunteer=volunteers, form=form, message=message)
-
-def getvolid(f_name):
-    v = db.session.query(Volunteer).filter(Volunteer.f_name == f_name).first()
-    return v.v_id
-def geteid(name):
-    e = db.session.query(Events).filter(Events.name == name).first()
-    return e.e_id
