@@ -25,5 +25,7 @@ Register/add Event - Self explantory, further details will be added in later on,
  
  Currently functioning many-many table, but minor issues needs resolved. Delete Functionalty onthe assoication table not present.
  
+ gunicorn installed - can be launched wtih gunicorn -b 5000 ipaddress aplication:app
+ 
 
 
