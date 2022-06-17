@@ -23,13 +23,13 @@ Basic Functionality at the moment, to show proof of concept. Fully working Home 
 NOT ALL FUNCTIONS HAVE A BUTTON !!!
 
 Register/Add Volunteer - Allows you to add a new volunteer
-Update Volunteer  -  alllows you to amend or change a voluneers details
-To delete a volunteer - you need to type in the at the end of the url /delvol/[volid]
+Update Volunteer  -  alllows you to amend or change a voluneers details,done through URL by /delvol/[volunteerid]
+To delete a volunteer - you need to type in the at the end of the url /delvol/[volunteerid]
 Where vol id is the volunteer id number
 
 Register/add Event - Self explantory, further details will be added in later on, such as events description 
  and time, as well as event lead details. 
- Update Event - amend or change event details for an existing event
+ Update Event - amend or change event details for an existing event, done through URL by added/updateevent/[eventid]
  Delete Event - done through URL also by /deleteevent/[eventid]
  
  Assign Volunteers - can be assigned to specific events. 
