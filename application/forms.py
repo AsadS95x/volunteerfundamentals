@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField,IntegerField, DateTimeField, DateField
 
+# This contians forms required for some of the HTML pages which need feedback. Refrenced in routes.py
 
 class Volform(FlaskForm):
     v_id = IntegerField("Volunteer ID")
