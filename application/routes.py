@@ -6,15 +6,16 @@ from flask import Flask, redirect, render_template, request, url_for
 from application.forms import UpVolform, Volform,AddEventform, UpEvform, Assignform
 
 
+#Show the All events pages
 @app.route('/viewevents', methods=['GET'])
 def viewevents():
     events = db.session.query(Events).all()
     return render_template('view_events.html', events=events, message="")
 
+#Show Register/Add Event Page
 @app.route('/addevent', methods=['GET', 'POST'])
 def addevent():
     eform = AddEventform()
-
     if request.method == 'POST': 
         name = eform.name.data
         date = eform.date.data
@@ -29,8 +30,8 @@ def addevent():
 
     return render_template('add_event.html', form=eform)
 
-   
-@app.route('/updatevent/<id>', methods=['GET', 'POST'])
+#Amend Event Page through URl
+@app.route('/updateevent/<id>', methods=['GET', 'POST'])
 def updateevent(id):
     message = "Details Updated"
     event = db.session.query(Events).filter(Events.e_id == id).first()
@@ -44,6 +45,7 @@ def updateevent(id):
 
     return render_template('update_event.html', form=UpEform, message=message)
 
+#Delete Event page through url
 @app.route('/deleteevent/<id>', methods=['GET', 'POST'])
 def deletevent(id):
     message= "Event Removed"
@@ -55,17 +57,19 @@ def deletevent(id):
     event = db.session.query(Events).all()
     return render_template("view_events.html", events=event, message=message)
 
-
+# Home Page
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     return render_template('home.html')  
 
+# Show all volunteers page
 @app.route('/viewvols', methods=['GET', 'POST'])
 def viewvolunteers():
     volunteers = db.session.query(Volunteer).all()
     return render_template('view_volunteers.html', volunteers=volunteers, message="")
 
+#Register/Add new Volunteer
 @app.route('/newvol', methods=['GET', 'POST'])
 def registervolunteer():
     message = ""
@@ -89,6 +93,7 @@ def registervolunteer():
 
     return render_template('add_vol.html', form=vform, message=message)
 
+#Delete a volunteer from the db
 @app.route('/delvol/<id>', methods=['GET', 'POST'])
 def deletevolunteer(id):
     message= "Volunteer Removed"
@@ -100,6 +105,7 @@ def deletevolunteer(id):
     volunteers = db.session.query(Volunteer).all()
     return render_template("view_volunteers.html", volunteers=volunteers, message=message)
 
+#Update a volunteers details
 @app.route('/updvol/<id>', methods=['GET', 'POST'])
 def updatevolunteer(id):
     message = "Details Updated"
@@ -114,7 +120,7 @@ def updatevolunteer(id):
 
     return render_template('update_vol.html', form=form, message=message)
 
-    
+#assign a volunteer to a registered event
 @app.route('/assign', methods=['GET', 'POST'])
 def assign():
     message = "Volunteer Assigned"
@@ -140,6 +146,7 @@ def assign():
         return redirect(url_for("ShowAssignments"))
     return render_template('assign.html',  events=events, volunteer=volunteers, form=form, message=message)
 
+# Show all volunteer assignments
 @app.route('/viewassign', methods=['GET', 'POST'])
 def ShowAssignments():
     enrolled = db.session.query(enrollment).all()
