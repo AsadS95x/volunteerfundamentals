@@ -1,11 +1,12 @@
 from application import db
 
-
+# Assocaition Table
 enrollment = db.Table( "enrollment",
 db.Column("events_id", db.Integer, db.ForeignKey('events.e_id')),
 db.Column("volunteer_id", db.Integer, db.ForeignKey('volunteer.v_id'))
 )
 
+#Volunteer Table
 class Volunteer(db.Model):
     v_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     f_name = db.Column(db.String(30), nullable=False)
@@ -17,6 +18,7 @@ class Volunteer(db.Model):
     self.v_id = volunteer_id
     self.e_id = events_id '''
 
+#Events Table 
 class Events(db.Model):
     e_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(30), nullable=False)
