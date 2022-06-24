@@ -52,7 +52,7 @@ def deletevent(id):
     event = db.session.query(Events).filter(Events.e_id == id)
     event.delete()
     #deenroll = db.session.query(enrollment).filter(enrollment.events_id == id).first()
-    #deenroll.delete()
+    #db.session.delete()
     db.session.commit()
     event = db.session.query(Events).all()
     return render_template("view_events.html", events=event, message=message)
