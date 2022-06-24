@@ -18,6 +18,7 @@ services:
       - vf-net
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MY_KEY: ${MY_KEY}
     depends_on:
       - "mysql"
   nginx:
