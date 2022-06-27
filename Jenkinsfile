@@ -16,6 +16,9 @@ pipeline {
             }
         }
         stage('Deploy') { 
+            agent { 
+                label 'agent1'
+            }
             steps {
                 sh '''#!/bin/bash
                 if [ -f  /tmp/gpidfile ]
