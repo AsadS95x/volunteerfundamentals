@@ -29,7 +29,7 @@ pipeline {
                   then kill $(cat /tmp/gpidfile)
                 fi
                 source venv/bin/activate
-                BUILD_ID=nokill gunicorn application:app -D -w 4 -b 0.0.0.0:5000 -p /tmp/gpidfile'''
+                JENKINS_NODE_COOKIE=nokill gunicorn application:app -D -w 4 -b 0.0.0.0:5000 -p /tmp/gpidfile'''
             }
         }
 
