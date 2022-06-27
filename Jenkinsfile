@@ -2,9 +2,6 @@ pipeline {
     agent any
     stages {
         stage('Build') { 
-            agent { 
-                label 'agent1'
-            }
             steps {
                 git branch: 'HomePage', url: 'https://github.com/AsadS95x/volunteerfundamentals.git'
                 sh '''#!/bin/bash
