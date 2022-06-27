@@ -1,6 +1,9 @@
 pipeline {
     agent any
     stages {
+        agent { 
+                label 'agent1'
+            }  
                 stage('PyTest') { 
             steps {
                 git branch: 'HomePage', url: 'https://github.com/AsadS95x/volunteerfundamentals.git'
