@@ -21,10 +21,5 @@ pip3 install -r requirements.txt
 python3 -m Pytest.py'''
             }
         }
-        stage('Deploy') { 
-            steps {
-                // 
-            }
-        }
     }
 }
