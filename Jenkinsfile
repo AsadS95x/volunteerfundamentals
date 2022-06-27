@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps {
                 git branch: 'HomePage', url: 'https://github.com/AsadS95x/volunteerfundamentals.git'
-                sh '''#/bi/bash
+                sh '''#/bin/bash
                 python3 -m venv venv
                 source venv/bin/activate
                 pip3 install -r requirements.txt
@@ -14,7 +14,7 @@ pipeline {
         stage('PyTest') { 
             steps {
                 git branch: 'HomePage', url: 'https://github.com/AsadS95x/volunteerfundamentals.git'
-                sh '''#/bi/bash
+                sh '''#/bin/bash
                 python3 -m venv venv
                 source venv/bin/activate
                 pip3 install -r requirements.txt
